@@ -2,6 +2,7 @@
 import PIL
 import sys
 import os
+import argparse
 
 args = sys.argv[1:]
 
@@ -28,7 +29,6 @@ NOTE: Don't use space at the end of lines
 # ' ' is white because it is space
 	sys.exit(-1)
 
-import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("file", help="provide a file name")
 parser.add_argument("-g","--gen-qr", action="store_true",help="increase output verbosity")
