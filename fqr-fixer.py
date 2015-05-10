@@ -28,29 +28,27 @@ NOTE: Don't use space at the end of lines
 # ' ' is white because it is space
 	sys.exit(-1)
 
-len_args = len(args)
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("file", help="provide a file name")
+parser.add_argument("-g","--gen-qr", action="store_true",help="increase output verbosity")
+parser.add_argument("-n","--N", type=int, help="N to be the size of NxN matrix")
+args = parser.parse_args()
+#print(args.file.upper())
+if args.gen_qr:
+	if args.N == None:
+		print "Missing N"
+		sys.exit(0)
+	if args.N:
+	    print("runing with {}".format(args.N))
 
-if len_args is 0:
-	print_help()
-
-if args[0] == "--gen-qr":
-	if len_args < 2:
-		print "Missing N\n"
-		print_help()
-	try:
-		N = int(args[1])
-	except:
-		print "N should be integer but given: ", args[1], "\n"
-		print_help()
-
+	N = args.N
 	qr = [['.' for col in range(N)] for row in range(N)]
 	qr_str = '\n'.join([''.join(s) for s in qr])+'\n'
-	if len_args > 2:
-		with open(args[2], 'w') as f:
-			f.write(qr_str)
-	else:
-		print qr_str
-	sys.exit(0)
+	with open(args.file, 'w') as f:
+		f.write(qr_str)
+
+		sys.exit(0)
 
 
 
@@ -181,6 +179,6 @@ class FQR(object):
 		FQR.print_qr(self.qr)
 
 fqr = FQR()
-fqr.load_qr(args[0])
+fqr.load_qr(args.file)
 
 fqr.find_positionings()
