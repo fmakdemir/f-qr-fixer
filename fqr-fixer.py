@@ -184,3 +184,15 @@ fqr = FQR()
 fqr.load_qr(args[0])
 
 fqr.find_positionings()
+
+
+"""
+* detect qr size
+* orientation detection
+* possible orientation list for fix algorithms
+* for each possible fqr matrix we will try to fix it by
+** fixing corners
+** trying possible masks
+** trying possible missing bits
+** give possible results (with filters such as visible ascii)
+"""
