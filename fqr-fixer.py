@@ -154,6 +154,7 @@ class FQR(object):
 
 	# Error Correction Level, mask, format string
 	FORMATS = [
+<<<<<<< HEAD
 		('L', 0, 'xxx.xxxxx...x..'),
 		('L', 1, 'xxx..x.xxxx..xx'),
 		('L', 2, 'xxxxx.xx.x.x.x.'),
@@ -218,6 +219,70 @@ class FQR(object):
 		if mode == 3: return 16
 		if mode == 4: return 12
 
+=======
+	('L', 0, "xxx xxxxx   x  "),
+	('L', 1, "xxx  x xxxx  xx"),
+	('L', 2, "xxxxx xx x x x "),
+	('L', 3, "xxxx   x  xxx x"),
+	('L', 4, "xx  xx   x xxxx"),
+	('L', 5, "xx   xx   xx   "),
+	('L', 6, "xx xx   x     x"),
+	('L', 7, "xx x  x xxx xx "),
+	('M', 0, "x x x     x  x "),
+	('M', 1, "x x   x  x  x x"),
+	('M', 2, "x xxxx  xxxxx  "),
+	('M', 3, "x xx xx x  x xx"),
+	('M', 4, "x   x xxxxxx  x"),
+	('M', 5, "x      xx  xxx "),
+	('M', 6, "x  xxxxx  x xxx"),
+	('M', 7, "x  x x x x     "),
+	('Q', 0, " xx x x x xxxxx"),
+	('Q', 1, " xx     xx x   "),
+	('Q', 2, " xxxxxx  xx   x"),
+	('Q', 3, " xxx x      xx "),
+	('Q', 4, " x  x  x xx x  "),
+	('Q', 5, " x    xx     xx"),
+	('Q', 6, " x xxx xx xx x "),
+	('Q', 7, " x x xxxxx xx x"),
+	('H', 0, "  x xx x   x  x"),
+	('H', 1, "  x  xxx xxxxx "),
+	('H', 2, "  xxx  xxx  xxx"),
+	('H', 3, "  xx  xxx x    "),
+	('H', 4, "    xxx xx   x "),
+	('H', 5, "     x  x x x x"),
+	('H', 6, "   xx x    xx  "),
+	('H', 7, "   x     xxx xx")
+]
+	INDEXES = [
+		[7, 7, 7, 7, 1, 1, 1, 1],
+		[7, 7, 7, 7, 1, 1, 1, 1],
+		[8, 8, 6, 6, 2, 2, 0, 0],
+		[8, 8, 6, 6, 2, 2, 0, 0],
+		[8, 8, 6, 6, 2, 2, 0, 0],
+		[8, 8, 6, 6, 2, 2, 0, 0],
+		[9, 9, 5, 5, 3, 3, -1, -1],
+		[9, 9, 5, 5, 3, 3, -1, -1],
+		[9, 9, 5, 5, 3, 3, -1, -1],
+		[9, 9, 5, 5, 3, 3, -1, -1],
+		[10, 10, 4, 4, 4, 4, -2, -2],
+		[10, 10, 4, 4, 4, 4, -2, -2]
+	]
+
+	MULTIPLIERS = [
+		[4, 8, 16, 32, 4, 8, 16, 32],
+		[1, 2, 64, 128, 1, 2, 64, 128],
+		[64, 128, 1, 2, 64, 128, 1, 2],
+		[16, 32, 4, 8, 16, 32, 4, 8],
+		[4, 8, 16, 32, 4, 8, 16, 32],
+		[1, 2, 64, 128, 1, 2, 64, 128],
+		[64, 128, 1, 2, 64, 128, 1, 2],
+		[16, 32, 4, 8, 16, 32, 4, 8],
+		[4, 8, 16, 32, 4, 8, 16, 32],
+		[1, 2, 64, 128, 1, 2, 64, 128],
+		[4, 8, 1, 2, 64, 128, 1, 2],
+		[1, 2, 4, 8, 16, 32, 4, 8]
+	]
+>>>>>>> 82b51e5be10a07b68c64f8dc179330c0097ffd19
 	def __init__(self, path=None):
 		self.dirty = True
 		self.N = -1
