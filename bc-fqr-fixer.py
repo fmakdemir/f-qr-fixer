@@ -12,20 +12,17 @@ def print_help():
 	print """
 array file format:
 
-.   xxx...x.x..x
-xx....xxxx.  ...
+*...xxx***x*x**x
+xx****xxxx*..***
 
 'x' or 'X' => black
-' ' => white
+'o' => white
 '.' => unknown
-'|' => line ending because if there is space at the end my sublime erase it
 
-It should be an NxN matrix with only 'x', '.' and ' ' characters
+It should be an NxN matrix with only 'x', '.' and '*' characters
 
-NOTE: Don't use space at the end of lines
+NOTE: Spaces and empty lines will be removed
 """
-# '.' is unknown because it is also regexp wildcard
-# ' ' is white because it is space
 	sys.exit(-1)
 
 len_args = len(args)
@@ -52,6 +49,10 @@ if args[0] == "--gen-qr":
 		print qr_str
 	sys.exit(0)
 
+class MalformedFQRException(Exception):
+
+	def __init__(self, msg):
+		super(MalformedFQRException, msg)
 
 
 class FQR(object):
@@ -119,9 +120,9 @@ class FQR(object):
 		for i in range(N):
 			for j in range(N):
 				c = qr_str[i][j]
-				if c == 'x' or c == 'X':
+				if c == 'x':
 					qr_ar[i][j] = 1
-				elif c == ' ':
+				elif c == 'o':
 					qr_ar[i][j] = 0
 		return qr_ar
 
@@ -136,7 +137,7 @@ class FQR(object):
 				if c == 1:
 					qr_str[i][j] = 'x'
 				elif c == 0:
-					qr_str[i][j] = ' '
+					qr_str[i][j] = 'o'
 		return [''.join(x) for x in qr_str]
 
 # ASSUMES GIVEN STR LIST IS NxN
@@ -147,8 +148,8 @@ class FQR(object):
 	def load_qr(self, path):
 		self.dirty = True
 		with open(path, 'r') as f:
-			# read non empty lines, erase end of lines
-			self.qr_str = [x.strip('|\n').lower() for x in f.readlines() if len(x)>1]
+			# read non empty lines after erasing spaces and EOLs
+			self.qr_str = [x.strip().lower() for x in f.readlines() if len(x)>1]
 			self.N = len(self.qr_str)
 			error = ""
 			for line in self.qr_str:
@@ -158,8 +159,7 @@ class FQR(object):
 				elif any(ch not in 'x .' for ch in line):
 					error = "Unwanted character on last line"
 				if error != "":
-					print "Loaded FQR array is not in right format:\n\tError: ", error
-					return
+					raise MalformedFQRException(error)
 
 			self.dirty = False
 			print "\nLoaded successfully:", path, "\n"
