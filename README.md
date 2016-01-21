@@ -1,9 +1,11 @@
 f-qr-fixer
 =========
 
+Requires Pillow (can be installed with easy_install), qrtools (on ubuntu there is a python-qrtools package)
+
 Using a file given in format of an NxN matrix where x or X is black . is white and * is unknown
 
-For example an fqr input where left side of qr code is destroyed:
+For example an fqr input where left side of qr code is destroyed from SECCON-14/qr-easy:
 
 ```
 ****************XX....XXXXXXX
@@ -35,4 +37,11 @@ For example an fqr input where left side of qr code is destroyed:
 ******************.XXXX...XXX
 ******************XX...XX.X.X
 ******************.XX.XXXX.XX
+```
+
+
+Example usage:
+```
+./fqr-image2fqr.py examples/seccon.png 29 -o seccon
+./fqr-fixer.py -f seccon.fqr
 ```

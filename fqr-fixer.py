@@ -24,35 +24,6 @@ Size must be NxN where N is (4*qr_version+17) meaning 21, 25, 29..., 177
 1<=qr_version<=40
 ''')
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--file', help='provide a fqr file')
-parser.add_argument('-g','--gen-qr', action='store', type=int, help='generate empty fqr matrix')
-parser.add_argument('--show-format', action='store_true', help='shows fqr matrix format')
-args = parser.parse_args()
-
-if len(sys.argv) == 1:
-	parser.print_help()
-	sys.exit(0)
-
-if args.gen_qr:
-	N = args.gen_qr
-	if N < 1: N = 1
-	if N > 40: N = 40
-	N = N*4+17
-	qr = [['*' for col in range(N)] for row in range(N)]
-	qr_str = '\n'.join([''.join(s) for s in qr])+'\n'
-	if args.file:
-		with open(args.file, 'w') as f:
-			f.write(qr_str)
-	else:
-		print(qr_str)
-	sys.exit(0)
-
-if args.show_format:
-	print_fqr_format()
-	sys.exit(0)
-
-
 class MalformedFQRException(Exception):
 
 	def __init__(self, msg):
@@ -154,7 +125,6 @@ class FQR(object):
 
 	# Error Correction Level, mask, format string
 	FORMATS = [
-<<<<<<< HEAD
 		('L', 0, 'xxx.xxxxx...x..'),
 		('L', 1, 'xxx..x.xxxx..xx'),
 		('L', 2, 'xxxxx.xx.x.x.x.'),
@@ -219,70 +189,6 @@ class FQR(object):
 		if mode == 3: return 16
 		if mode == 4: return 12
 
-=======
-	('L', 0, "xxx xxxxx   x  "),
-	('L', 1, "xxx  x xxxx  xx"),
-	('L', 2, "xxxxx xx x x x "),
-	('L', 3, "xxxx   x  xxx x"),
-	('L', 4, "xx  xx   x xxxx"),
-	('L', 5, "xx   xx   xx   "),
-	('L', 6, "xx xx   x     x"),
-	('L', 7, "xx x  x xxx xx "),
-	('M', 0, "x x x     x  x "),
-	('M', 1, "x x   x  x  x x"),
-	('M', 2, "x xxxx  xxxxx  "),
-	('M', 3, "x xx xx x  x xx"),
-	('M', 4, "x   x xxxxxx  x"),
-	('M', 5, "x      xx  xxx "),
-	('M', 6, "x  xxxxx  x xxx"),
-	('M', 7, "x  x x x x     "),
-	('Q', 0, " xx x x x xxxxx"),
-	('Q', 1, " xx     xx x   "),
-	('Q', 2, " xxxxxx  xx   x"),
-	('Q', 3, " xxx x      xx "),
-	('Q', 4, " x  x  x xx x  "),
-	('Q', 5, " x    xx     xx"),
-	('Q', 6, " x xxx xx xx x "),
-	('Q', 7, " x x xxxxx xx x"),
-	('H', 0, "  x xx x   x  x"),
-	('H', 1, "  x  xxx xxxxx "),
-	('H', 2, "  xxx  xxx  xxx"),
-	('H', 3, "  xx  xxx x    "),
-	('H', 4, "    xxx xx   x "),
-	('H', 5, "     x  x x x x"),
-	('H', 6, "   xx x    xx  "),
-	('H', 7, "   x     xxx xx")
-]
-	INDEXES = [
-		[7, 7, 7, 7, 1, 1, 1, 1],
-		[7, 7, 7, 7, 1, 1, 1, 1],
-		[8, 8, 6, 6, 2, 2, 0, 0],
-		[8, 8, 6, 6, 2, 2, 0, 0],
-		[8, 8, 6, 6, 2, 2, 0, 0],
-		[8, 8, 6, 6, 2, 2, 0, 0],
-		[9, 9, 5, 5, 3, 3, -1, -1],
-		[9, 9, 5, 5, 3, 3, -1, -1],
-		[9, 9, 5, 5, 3, 3, -1, -1],
-		[9, 9, 5, 5, 3, 3, -1, -1],
-		[10, 10, 4, 4, 4, 4, -2, -2],
-		[10, 10, 4, 4, 4, 4, -2, -2]
-	]
-
-	MULTIPLIERS = [
-		[4, 8, 16, 32, 4, 8, 16, 32],
-		[1, 2, 64, 128, 1, 2, 64, 128],
-		[64, 128, 1, 2, 64, 128, 1, 2],
-		[16, 32, 4, 8, 16, 32, 4, 8],
-		[4, 8, 16, 32, 4, 8, 16, 32],
-		[1, 2, 64, 128, 1, 2, 64, 128],
-		[64, 128, 1, 2, 64, 128, 1, 2],
-		[16, 32, 4, 8, 16, 32, 4, 8],
-		[4, 8, 16, 32, 4, 8, 16, 32],
-		[1, 2, 64, 128, 1, 2, 64, 128],
-		[4, 8, 1, 2, 64, 128, 1, 2],
-		[1, 2, 4, 8, 16, 32, 4, 8]
-	]
->>>>>>> 82b51e5be10a07b68c64f8dc179330c0097ffd19
 	def __init__(self, path=None):
 		self.dirty = True
 		self.N = -1
@@ -313,8 +219,8 @@ class FQR(object):
 
 	@staticmethod
 	def size2version(N):
+		error = 'Size is invalid must be N = (4*version + 17) and NxN N='+str(N)
 		N -= 17
-		error = 'Size is invalid must be N = (4*version + 17) and NxN'
 		if N % 4 != 0:
 			raise MalformedFQRException(error)
 		N /= 4
@@ -338,9 +244,10 @@ class FQR(object):
 		dqr[dqr == 1] = 255
 		dqr[dqr == 2] = 128
 		from PIL import Image
-		nqr = np.zeros((29*8, 29*8)) # x8 zoom image
-		for i in range(29*8):
-			for j in range(29*8):
+		N = len(dqr)
+		nqr = np.zeros((N*8, N*8)) # x8 zoom image
+		for i in range(N*8):
+			for j in range(N*8):
 				nqr[i, j] = dqr[i//8, j//8]
 				if nqr[i, j] == 128:
 					nqr[i, j] = ((i+j)%2)*255
@@ -400,14 +307,17 @@ class FQR(object):
 		# get not found corners
 		miss_finder = [x for x in range(4) if x not in self.pos_finderp]
 		return miss_finder
-		return [3]
 
 	# assumes alignment is found
 	# need to check other format positions currently only RT is checked
 	def find_format(self):
-		fstr = self.qr[8][-8:]
+		fstr = ''.join(self.qr[8, -8:])
 		res = []
 		for f in FQR.FORMATS:
+			print(f)
+			print(fstr)
+			print(f[2][-len(fstr):])
+			print()
 			if self._qstr_match(f[2][-len(fstr):], fstr):
 				res.append(f)
 		return res
@@ -463,6 +373,8 @@ class FQR(object):
 	def fix_alignment_patterns(self, qr=None):
 		if qr is None:
 			qr = self.qr
+		if len(qr) <= 21: # these dont have align patterns
+			return
 		locs = None
 		for l in FQR.ALIGN_PATTERN_LOC:
 			if self.version == l[0]:
@@ -558,7 +470,11 @@ class FQR(object):
 			print('Ind len:', ind_len)
 			print('Char count:', char_cnt)
 
-			if mode == '0010': # alphanumeric
+			if mode == '0001': # numeric
+				for t in range(char_cnt):
+					raise NotImplementedError('will look how to do later')
+					k += 3
+			elif mode == '0010': # alphanumeric
 				for t in range(char_cnt//2):
 					x = bin_ar_to_int(ds[k:k+11])
 					x1 = x//45
@@ -567,12 +483,12 @@ class FQR(object):
 					res += c1
 					c2 = FQR.ALPHANUM[x2]
 					res += c2
-					print('ch1:', x1, c1)
-					print('ch2:', x2, c2)
+					print('ch1:', c1, x1)
+					print('ch2:', c2, x2)
 					k += 11
 				if char_cnt % 2 == 1:
 					x = bin_ar_to_int(ds[k:k+11])
-					print('ch3:', x, FQR.ALPHANUM[x])
+					print('ch3:', FQR.ALPHANUM[x], x)
 					res += FQR.ALPHANUM[x]
 					k += 11
 			elif mode == '0100': # byte
@@ -581,7 +497,9 @@ class FQR(object):
 					c = chr(x)
 					res += c
 					k += 8
-					print('ch0:', x, c, ds[k-8:k])
+					print('ch0:', c, x, ds[k-8:k])
+			elif mode == '1000': # kanji
+				raise NotImplementedError('will look how to do later (sorry you bumped into one using :)')
 
 	def fix_qr(self):
 		poses = self.find_positioning()
@@ -608,30 +526,44 @@ class FQR(object):
 				self.qr = fbc_qr
 			self.qr = bc_qr
 
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-f', '--file', help='FQR file to fix')
+	parser.add_argument('-g','--gen-qr', action='store', type=int, help='generate empty fqr matrix')
+	parser.add_argument('--show-format', action='store_true', help='shows fqr matrix format')
+	args = parser.parse_args()
 
+	if len(sys.argv) == 1:
+		parser.print_help()
+		sys.exit(0)
 
-fqr = FQR(args.file)
+	if args.gen_qr:
+		N = args.gen_qr
+		if N < 1: N = 1
+		if N > 40: N = 40
+		N = N*4+17
+		qr = [['*' for col in range(N)] for row in range(N)]
+		qr_str = '\n'.join([''.join(s) for s in qr])+'\n'
+		if args.file:
+			with open(args.file, 'w') as f:
+				f.write(qr_str)
+		else:
+			print(qr_str)
+		sys.exit(0)
 
-fqr.fix_qr()
-fqr.print_qr(fqr.get_qr())
-FQR.save_qr_img(fqr.get_qr(), 'test.png')
+	if args.show_format:
+		print_fqr_format()
+		sys.exit(0)
+
+	fqr = FQR(args.file)
+
+	fqr.fix_qr()
+	#fqr.print_qr(fqr.get_qr())
+	FQR.save_qr_img(fqr.get_qr(), args.file+'-fixed.png')
 
 '''
-from qrtools import QR
-myCode = QR(filename=u"/tmp/data.png")
-if myCode.decode():
-  print(myCode.data)
-  print(myCode.data_type)
-  print(myCode.data_to_string())
-'''
-
-'''
-* detect qr size
-* orientation detection
-* possible orientation list for fix algorithms
+TODO LIST
 * for each possible fqr matrix we will try to fix it by
-** fixing corners
-** trying possible masks
 ** trying possible missing bits
 ** give possible results (with filters such as visible ascii)
 '''
