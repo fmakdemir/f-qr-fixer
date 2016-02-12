@@ -1,7 +1,7 @@
 f-qr-fixer
 =========
 
-Requires Pillow (can be installed with easy_install), qrtools (on ubuntu there is a python-qrtools package)
+QR fixer part is standalone but for image to FQR conversion it requires Pillow (can be installed with easy_install), qrtools (on ubuntu there is a python-qrtools package)
 
 Using a file given in format of an NxN matrix where x or X is black . is white and * is unknown
 
