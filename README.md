@@ -1,6 +1,8 @@
 f-qr-fixer
 =========
 
+![Python 2.6|2.7](https://img.shields.io/badge/python-2.6|2.7-green.svg) ![build](https://travis-ci.org/Fmakdemir/f-qr-fixer.svg?branch=master)
+
 QR fixer part is standalone but for image to FQR conversion it requires Pillow (can be installed with easy_install), qrtools (on ubuntu there is a python-qrtools package)
 
 Using a file given in format of an NxN matrix where x or X is black . is white and * is unknown
