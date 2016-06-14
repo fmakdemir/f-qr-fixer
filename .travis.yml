@@ -8,4 +8,4 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-script: nosetests ./fqr-fixer.py -f data/qr-easy.fqr
+script: ./fqr-fixer.py -f data/qr-easy.fqr
