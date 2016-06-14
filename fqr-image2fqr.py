@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python3.5
 from PIL import Image
 import sys
 import os
@@ -14,19 +14,19 @@ args = parser.parse_args()
 
 def print_help():
 	parser.print_help()
-	print "Usage:", sys.argv[0], "input-file qr-dimension [fqr-name]"
-	print "nimage input to fqr output\nImage must not have margin"
+	print("Usage:", sys.argv[0], "input-file qr-dimension [fqr-name]")
+	print("nimage input to fqr output\nImage must not have margin")
 	sys.exit(-1)
 
 if len(sys.argv) == 1:
 	print_help()
 
 if not os.path.exists(args.file):
-	print "File could not be found: ", ' '.join(args)
+	print("File could not be found: ", ' '.join(args))
 	sys.exit(-1)
 
 if args.file[-3:] not in ('png', 'jpg', 'bmp'):
-	print "File format should be one of: png, jpg, bmp"
+	print("File format should be one of: png, jpg, bmp")
 	sys.exit(-1)
 
 def save_qr_img(qr, path=None):
@@ -78,10 +78,10 @@ if args.out_name is not None:
 	save_qr_img(qr, img_path)
 	myCode = QR(filename=img_path)
 	if myCode.decode():
-		print 'data type:', myCode.data_type
-		print 'raw data:', myCode.data
-		print 'string data:', myCode.data_to_string()
+		print('data type:', myCode.data_type)
+		print('raw data:', myCode.data)
+		print('string data:', myCode.data_to_string())
 else:
-	print qr_str
+	print(qr_str)
 	save_qr_img(qr)
 
