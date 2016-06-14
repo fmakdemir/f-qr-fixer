@@ -1,4 +1,4 @@
-#!/usr/bin/python3.4
+#!/usr/bin/env python
 #from __future__ import division
 import PIL
 import sys
