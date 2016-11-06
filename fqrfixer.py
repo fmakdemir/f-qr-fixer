@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #from __future__ import division
 import PIL
 import sys
@@ -461,7 +461,7 @@ class FQR(object):
 				raise TypeError('Bits are broken unknown mode: '+mode)
 			if mode == '0000':
 				print('Found:', res)
-				return
+				return res
 
 			print('Mode:', FQR.MODES[mode])
 			ind_len = FQR.get_char_count_ind_len(mode, self.version)
@@ -522,7 +522,9 @@ class FQR(object):
 				fbc_qr = self.qr[:, :]
 				self.format = f
 				self.fix_format(self.format[2])
-				self.try_read()
+				res = self.try_read()
+				if res is not None:
+					return res
 				self.qr = fbc_qr
 			self.qr = bc_qr
 
@@ -557,7 +559,8 @@ if __name__ == '__main__':
 
 	fqr = FQR(args.file)
 
-	fqr.fix_qr()
+	res = fqr.fix_qr()
+	print('Result:', res)
 	#fqr.print_qr(fqr.get_qr())
 	FQR.save_qr_img(fqr.get_qr(), args.file+'-fixed.png')
 

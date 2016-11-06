@@ -1,3 +1,5 @@
 numpy==1.11.0
-Pillow==3.2.0
+Pillow==3.4.2
+py==1.4.31
+pytest==3.0.3
 qrtools==0.0.1
