@@ -1,7 +1,7 @@
 f-qr-fixer
 =========
 
-![Python 2.7|3.4|3.5](https://img.shields.io/badge/python-2.7%7C3.4%7C3.5-blue.svg) [![Build Status](https://travis-ci.org/Fmakdemir/f-qr-fixer.svg?branch=master)](https://travis-ci.org/Fmakdemir/f-qr-fixer)
+![Python 2.7|3.4|3.5](https://img.shields.io/badge/python-2.7%7C3.4%7C3.5-blue.svg) [![Build Status](https://travis-ci.org/fmakdemir/f-qr-fixer.svg?branch=master)](https://travis-ci.org/Fmakdemir/f-qr-fixer)
 
 QR fixer part is standalone but for image to FQR conversion it requires Pillow (can be installed with easy_install), qrtools (on ubuntu there is a python-qrtools package)
 
