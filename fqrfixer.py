@@ -205,7 +205,7 @@ class FQR(object):
 
 	@staticmethod
 	def print_qr(qr):
-		print('\n'+'\n'.join([ ''.join(x) for x in qr])+'\n')
+		print(f"\n{'\n'.join([ ''.join(x) for x in qr])}\n")
 
 	# '*' in mstr will ignored cstr can't have '*'
 	@staticmethod
@@ -223,7 +223,7 @@ class FQR(object):
 		N -= 17
 		if N % 4 != 0:
 			raise MalformedFQRException(error)
-		N /= 4
+		N //= 4
 		if N < 0 or N > 40:
 			raise MalformedFQRException('Unknown version: ' + N)
 		return N
@@ -264,7 +264,7 @@ class FQR(object):
 			self.qr = np.array([ list( x.strip('|\n').lower() ) for x in f.readlines() if len(x)>1])
 			self.N = len(self.qr)
 			self.version = FQR.size2version(self.N)
-			print("Version:", self.version, "\nSize: {0}x{0}".format(self.N), "\n")
+			print(f"Version: {self.version}\nSize: {self.N}x{self.N}\n")
 
 			error = ''
 			for line in self.qr:
@@ -278,7 +278,7 @@ class FQR(object):
 
 			self.dirty = False
 			self.bc_qr = self.qr[:, :] # take a copy for reversing
-		print('FQR file loaded successfully:', path, '\n')
+		print(f'FQR file loaded successfully:{path}\n')
 
 
 	# TODO: make this accept a percentage of matches i.e there can be * in there
