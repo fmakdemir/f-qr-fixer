@@ -205,7 +205,7 @@ class FQR(object):
 
 	@staticmethod
 	def print_qr(qr):
-		print(f"\n{'\n'.join([ ''.join(x) for x in qr])}\n")
+		print('\n' + '\n'.join([ ''.join(x) for x in qr]) + '\n')
 
 	# '*' in mstr will ignored cstr can't have '*'
 	@staticmethod
